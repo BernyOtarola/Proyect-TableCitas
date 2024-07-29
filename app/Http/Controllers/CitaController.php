@@ -25,9 +25,9 @@ class CitaController extends Controller
         $sucursales = Sucursal::all();
         $especialidades = Especialidad::all();
         $medicos = Medico::all();
+
         return view('citas.create', compact('pacientes', 'sucursales', 'especialidades', 'medicos'));
     }
-
     // Almacenar una nueva cita en la base de datos
     public function store(Request $request)
     {
@@ -44,7 +44,7 @@ class CitaController extends Controller
 
         $cita = new Cita();
         $cita->paciente = $request->paciente;
-        $cita->fechaActual = date('Y-m-d'); 
+        $cita->fechaActual = date('Y-m-d');
         $cita->fechaCita = $request->fechaCita;
         $cita->horaCita = $request->horaCita;
         $cita->sucursal = $request->sucursal;
@@ -104,4 +104,5 @@ class CitaController extends Controller
 
         return redirect('/citas')->with('success', 'Cita eliminada exitosamente');
     }
+
 }

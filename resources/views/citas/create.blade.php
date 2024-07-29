@@ -1,8 +1,10 @@
+<!-- resources/views/citas/create.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
 <h1>Crear Cita</h1>
-<form action="/citas" method="POST">
+<form action="{{ route('citas.store') }}" method="POST">
     @csrf
     <div class="form-group">
         <label for="paciente">Paciente</label>
@@ -24,7 +26,7 @@
         <label for="sucursal">Sucursal</label>
         <select name="sucursal" class="form-control">
             @foreach($sucursales as $sucursal)
-            <option value="{{ $sucursal->idSucursal }}">{{ $sucursal->nombre }}</option>
+            <option value="{{ $sucursal->idSucursal }}">{{ $sucursal->nomSucursal }}</option>
             @endforeach
         </select>
     </div>
