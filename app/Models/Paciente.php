@@ -14,6 +14,7 @@ class Paciente extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'cedula',
         'nombre',
         'direccion',
         'genero',
@@ -24,10 +25,26 @@ class Paciente extends Model
         'email',
         'provincia',
         'canton',
+        'sucursal',
         'fechaIngreso',
-        'sucursal'
     ];
 
+    // Define a default value for 'fechaIngreso'
+    protected $attributes = [
+        'fechaIngreso' => null,
+    ];
+
+    // Ensure 'fechaIngreso' is always set to the current date
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (is_null($model->fechaIngreso)) {
+                $model->fechaIngreso = date('Y-m-d');
+            }
+        });
+    }
     public function citas()
     {
         return $this->hasMany(Cita::class);

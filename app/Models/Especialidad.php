@@ -12,20 +12,21 @@ class Especialidad extends Model
     protected $table = 'especialidades';
     protected $primaryKey = 'idEspecialidad';
     public $timestamps = false;
+
     protected $fillable = [
         'nombre',
-        'descripcion'
-       
+        'descripcion',
+        'activo',
     ];
 
     public function sucursales()
     {
-        return $this->belongsToMany(Sucursal::class, 'especialidadessucursal');
+        return $this->belongsToMany(Sucursal::class, 'especialidadessucursal', 'especialidad', 'sucursal');
     }
 
     public function medicos()
     {
-        return $this->belongsToMany(Medico::class, 'especidadesmedico');
+        return $this->belongsToMany(Medico::class, 'especialidadesmedico', 'especialidad', 'medico');
     }
 
     public function citas()
@@ -33,4 +34,3 @@ class Especialidad extends Model
         return $this->hasMany(Cita::class);
     }
 }
-

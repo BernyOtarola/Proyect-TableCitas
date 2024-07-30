@@ -12,6 +12,7 @@ class Sucursal extends Model
     protected $table = 'sucursal';
     protected $primaryKey = 'idSucursal';
     public $timestamps = false;
+
     protected $fillable = [
         'nomSucursal',
         'lugar',
@@ -22,21 +23,25 @@ class Sucursal extends Model
         'whatsApp',
         'horaApertura',
         'horaCierre'
-
     ];
 
     public function especialidades()
     {
-        return $this->belongsToMany(Especialidad::class, 'especialidadessucursal');
+        return $this->belongsToMany(Especialidad::class, 'especialidadessucursal', 'sucursal', 'especialidad');
     }
 
     public function medicos()
     {
-        return $this->belongsToMany(Medico::class, 'sucursalesmedicos');
+        return $this->belongsToMany(Medico::class, 'sucursalesmedicos', 'sucursal', 'medico');
     }
 
     public function citas()
     {
         return $this->hasMany(Cita::class);
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(HorarioMedico::class, 'idSucursalMedico', 'idSucursal');
     }
 }

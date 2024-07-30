@@ -10,7 +10,6 @@ class Medico extends Model
     use HasFactory;
 
     protected $table = 'medicos';
-
     protected $primaryKey = 'idMedicos';
     public $timestamps = false;
 
@@ -27,12 +26,12 @@ class Medico extends Model
 
     public function especialidades()
     {
-        return $this->belongsToMany(Especialidad::class, 'especidadesmedico');
+        return $this->belongsToMany(Especialidad::class, 'especialidadesmedico', 'medico', 'especialidad');
     }
 
     public function sucursales()
     {
-        return $this->belongsToMany(Sucursal::class, 'sucursalesmedicos');
+        return $this->belongsToMany(Sucursal::class, 'sucursalesmedicos', 'medico', 'sucursal');
     }
 
     public function citas()
@@ -40,4 +39,8 @@ class Medico extends Model
         return $this->hasMany(Cita::class);
     }
 
+    public function horarios()
+    {
+        return $this->hasMany(HorarioMedico::class, 'idSucursalMedico', 'idMedicos');
+    }
 }
